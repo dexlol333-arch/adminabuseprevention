@@ -1,0 +1,54 @@
+# ==========================================
+#  AdminAbusePrevention
+#  Players with the LuckPerms permission  admin.abuse.prevention.excuse  are ignored.
+#  Everyone else (including ops) is watched. & color codes work in messages.
+#  Placeholders: %player% %from% %to% %item%
+# ==========================================
+messages:
+  prefix: "&c&lABUSE GUARD &8» "
+  gamemode-change: "&e%player% &7changed gamemode: &f%from% &7→ &a%to%"
+  creative-take: "&e%player% &7took &f%item% &7from the creative menu"
+  violation: "&4&l%player% &cwas deopped, set to survival and demoted for taking &f%item% &cfrom creative!"
+
+announce:
+  gamemode-changes: true
+  creative-takes: true
+
+# An item is "flagged" (takes the punishment) if it matches ANY of these:
+flagged:
+  # exact material names (add more, e.g. TIPPED_ARROW, TOTEM_OF_UNDYING, ELYTRA)
+  materials:
+    - ENCHANTED_GOLDEN_APPLE
+    - GOLDEN_APPLE
+    - POTION
+    - SPLASH_POTION
+    - LINGERING_POTION
+    - VILLAGER_SPAWN_EGG
+  # prefix + suffix: DIAMOND_ + _HELMET = DIAMOND_HELMET, NETHERITE_ + _PICKAXE, etc.
+  tier-prefixes:
+    - DIAMOND_
+    - NETHERITE_
+  tier-suffixes:
+    - _HELMET
+    - _CHESTPLATE
+    - _LEGGINGS
+    - _BOOTS
+    - _SWORD
+    - _AXE
+    - _PICKAXE
+    - _SHOVEL
+    - _HOE
+    - _SPEAR
+
+punishment:
+  enabled: true
+  cancel-item: true     # the flagged item is NOT given
+  set-survival: true
+  remove-op: true       # also calls setOp(false) after the commands, as a backup
+  # Run by the console, in order. %player% = the offender's name.
+  commands:
+    - "lp user %player% parent set default"
+    - "deop %player%"
+
+# Also write every punishment to plugins/AdminAbusePrevention/violations.log
+log-violations: true

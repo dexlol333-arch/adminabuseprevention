@@ -1,0 +1,19 @@
+name: AdminAbusePrevention
+version: 1.0.0
+main: dev.adminabuse.AdminAbusePrevention
+api-version: '1.21'
+softdepend: [LuckPerms]
+description: Announces gamemode changes and creative item takes, and punishes admin abuse.
+commands:
+  abuseguard:
+    description: AdminAbusePrevention admin command
+    usage: /abuseguard <reload|check>
+    aliases: [aap]
+permissions:
+  admin.abuse.prevention.excuse:
+    description: Excuses a player from admin abuse prevention (no announcements, no punishment)
+    # IMPORTANT: false, so being OP does NOT excuse anyone. Only an explicit LuckPerms grant does.
+    default: false
+  abuseguard.admin:
+    description: Use /abuseguard
+    default: op
