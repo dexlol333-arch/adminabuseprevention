@@ -1,0 +1,22 @@
+name: Build
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Build
+        run: |
+          POM=$(find . -name pom.xml -not -path "*/target/*" | head -n 1)
+          echo "Using $POM"
+          mvn -B package -f "$POM"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AdminAbusePrevention
+          path: "**/target/AdminAbusePrevention.jar"
